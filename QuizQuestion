@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+
+/**
+ * Represents a single quiz question with multiple choice answers.
+ * Personality Quiz Project
+ * Date: April 7, 2024
+ */
+
+public class QuizQuestion {
+    private int id; // Unique identifier for the question
+    private String questionText; // The text of the question
+    private ArrayList<String> choices; // List of possible answers
+    private int correctAnswerIndex; // Index within choices of the correct answer
+
+
+    // Constructor for creating a quiz question with choices.
+    public QuizQuestion(int id, String questionText, ArrayList<String> choices, int correctAnswerIndex) {
+        this.id = id;
+        this.questionText = questionText;
+        this.choices = choices;
+        this.correctAnswerIndex = correctAnswerIndex;
+    }
+
+    // Adds a choice to the list of possible answers.
+    public void addChoice(String choice) {
+        choices.add(choice);
+    }
+    // Gets the question ID.
+    public int getId() {
+        return id;
+    }
+
+    // Sets the question ID.
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    // Gets the question text.
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    // Sets the question text.
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    // Gets the list of choices.
+    public ArrayList<String> getChoices() {
+        return choices;
+    }
+
+    //  Sets the list of choices.
+    public void setChoices(ArrayList<String> choices) {
+        this.choices = choices;
+    }
