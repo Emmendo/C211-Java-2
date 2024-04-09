@@ -1,1 +1,10 @@
 
+// 
+* logic of the quix itself
+*/
+publis static void logic(){
+}
+
+public static void direction{
+    String answer = new String();
+}
