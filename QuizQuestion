@@ -1,57 +1,49 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a single quiz question with multiple choice answers.
+ * Alignments are stored but not displayed to the user, used internally for scoring the personality quiz.
  * Personality Quiz Project
  * Date: April 7, 2024
+ * Edited on 4/27/2024
+ * Created by Emmanuel Mendoza
  */
 
 public class QuizQuestion {
-    private int id; // Unique identifier for the question
-    private String questionText; // The text of the question
-    private ArrayList<String> choices; // List of possible answers
-    private int correctAnswerIndex; // Index within choices of the correct answer
+    private String questionText; // Text of the quiz question
+    private Map<String, String> choices; // Maps choice letter to description
+    private Map<String, String> alignments; // Maps choice letter to alignment, hidden from user
 
 
-    // Constructor for creating a quiz question with choices.
-    public QuizQuestion(int id, String questionText, ArrayList<String> choices, int correctAnswerIndex) {
-        this.id = id;
+     // Constructor for QuizQuestion. Initializes maps for choices and alignments.
+    public QuizQuestion(String questionText) {
         this.questionText = questionText;
-        this.choices = choices;
-        this.correctAnswerIndex = correctAnswerIndex;
-    }
-
-    // Adds a choice to the list of possible answers.
-    public void addChoice(String choice) {
-        choices.add(choice);
-    }
-    // Gets the question ID.
-    public int getId() {
-        return id;
-    }
-
-    // Sets the question ID.
-    public void setId(int id) {
-        this.id = id;
+        this.choices = new LinkedHashMap<>(); // Maintains the order of insertion for choices
+        this.alignments = new LinkedHashMap<>(); // Maintains the order of insertion for alignments
     }
 
 
-    // Gets the question text.
+     // Adds a choice to the quiz question.
+    public void addChoice(String answerLetter, String choice, String alignment) {
+        choices.put(answerLetter, choice); // Only store the choice text for display
+        alignments.put(answerLetter, alignment); // Store the alignment secretly for internal scoring
+    }
+
+     // Returns the text of the quiz question.
     public String getQuestionText() {
         return questionText;
     }
 
-    // Sets the question text.
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
+
+     // Returns the choices for the quiz question.
+    public Map<String, String> getChoices() {
+        return choices; // Return only the choices, not the alignments
     }
 
-    // Gets the list of choices.
-    public ArrayList<String> getChoices() {
-        return choices;
-    }
 
-    //  Sets the list of choices.
-    public void setChoices(ArrayList<String> choices) {
-        this.choices = choices;
+     // This method is intended for internal use to aid in scoring based on user's answers.
+    String getAlignment(String answerLetter) {
+        return alignments.get(answerLetter);
     }
+}
