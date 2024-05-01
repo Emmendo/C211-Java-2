@@ -1,0 +1,241 @@
+package dandd.danddquizgui;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import java.io.IOException;
+
+/**
+ * Personality Quiz GUI class
+ * @Date: 4/29/2024
+ * @Author: Kristen Thomas
+ */
+
+public class DDQuiz extends Application {
+
+    int currentQuestionIndex = 0;
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        Scene scene = new Scene(quizPane(), 650, 400);
+        stage.setTitle("D&D Personality Quiz");
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        stage.show();
+        initializeQuestions();
+    }
+
+    private BorderPane quizPane() {
+        BorderPane mainPane = new BorderPane();
+        mainPane.setStyle("-fx-background-color: white; -fx-background-radius: 32px; -fx-border-radius: 32px;");
+
+        //Label for Quiz Window
+        Label quizLabel = new Label("D&D Personality Quiz");
+        quizLabel.setWrapText(true);
+        quizLabel.setAlignment(Pos.CENTER);
+        quizLabel.setFont(new Font("Bookman Old Style", 24));
+        quizLabel.setStyle("-fx-text-fill: darkolivegreen;");
+
+        //Label for questions
+        Label questionLabel = new Label("Question: " + QuizQuestion.getQuestionText()); //
+        questionLabel.setWrapText(true);
+        questionLabel.setTextAlignment(TextAlignment.CENTER);
+        questionLabel.setFont(new Font("Arial", 16));
+
+        //pane for labels
+        VBox labelBox = new VBox(20);
+        labelBox.setPadding(new Insets(30));
+        labelBox.getChildren().addAll(quizLabel, questionLabel);
+        labelBox.setAlignment(Pos.BOTTOM_CENTER);
+
+        //Quiz choice buttons
+        RadioButton optA = new RadioButton("A. " + QuizQuestion.getChoices("A"));
+        RadioButton optB = new RadioButton("B. " + QuizQuestion.getChoices("B"));
+        RadioButton optC = new RadioButton("C. " + QuizQuestion.getChoices("C"));
+        RadioButton optD = new RadioButton("D. " + QuizQuestion.getChoices("D"));
+        optA.setFont(new Font("Arial", 14));
+        optB.setFont(new Font("Arial", 14));
+        optC.setFont(new Font("Arial", 14));
+        optD.setFont(new Font("Arial", 14));
+
+        //only one button can be selected
+        ToggleGroup optGroup = new ToggleGroup();
+        optA.setToggleGroup(optGroup);
+        optB.setToggleGroup(optGroup);
+        optC.setToggleGroup(optGroup);
+        optD.setToggleGroup(optGroup);
+
+        //buttons pane
+        VBox vbox = new VBox(30);
+        vbox.setPadding(new Insets(25));
+        vbox.getChildren().addAll(optA, optB, optC, optD);
+        vbox.setAlignment(Pos.CENTER_LEFT);
+
+        mainPane.setTop(labelBox);
+        mainPane.setCenter(vbox);
+
+        //button handlers
+        optA.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                handleChoice("A");
+            }
+        });
+        optB.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                handleChoice("B");
+            }
+        });
+        optC.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                handleChoice("C");
+            }
+        });
+        optD.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                handleChoice("D");
+            }
+        });
+
+        return mainPane;
+    }
+
+    // Questions for GUI
+    private void initializeQuestions() {
+        // Question 1
+        QuizQuestion q1 = new QuizQuestion("1. A friend confides in you about planning a surprise party for another friend whom you know dislikes surprises. What do you do?");
+        q1.addChoice("A", "Discourage the plan and suggest an alternative that everyone would enjoy.", "Lawful Good");
+        q1.addChoice("B", "Keep the secret, trusting your friend’s judgment.", "Neutral Good");
+        q1.addChoice("C", "Tell the friend who dislikes surprises, to prevent an uncomfortable situation.", "Chaotic Good");
+        q1.addChoice("D", "Encourage the surprise, anticipating the drama it will cause.", "Neutral Evil");
+        //quiz.addQuestion(q1);
+
+        // Question 2
+        QuizQuestion q2 = new QuizQuestion("2. In a team meeting, you believe your idea is the best but the team is leaning towards another less effective solution. How do you proceed?");
+        q2.addChoice("A", "Present a well-structured argument for why your solution is preferable.", "Lawful Good");
+        q2.addChoice("B", "Support the team's decision to maintain harmony.", "Neutral Good");
+        q2.addChoice("C", "Disrupt the consensus by challenging the team's decision outright.", "Chaotic Neutral");
+        q2.addChoice("D", "Manipulate the discussion subtly to discredit the other ideas.", "Lawful Evil");
+        //quiz.addQuestion(q2);
+
+        // Question 3
+        QuizQuestion q3 = new QuizQuestion("3. You find a loophole in a new tax regulation that could save you a significant amount of money. What do you do?");
+        q3.addChoice("A", "Ignore the loophole and pay the full tax, as it’s the right thing to do.", "Lawful Good");
+        q3.addChoice("B", "Use the loophole but donate some of the savings to charity.", "Neutral Good");
+        q3.addChoice("C", "Exploit the loophole to keep all the savings for yourself.", "Neutral Evil");
+        q3.addChoice("D", "Share the loophole with friends so they can also benefit.", "Chaotic Neutral");
+        //quiz.addQuestion(q3);
+
+        // Question 4
+        QuizQuestion q4 = new QuizQuestion("4. You are asked to vote for a new community policy that benefits your neighborhood but could harm another. How do you vote?");
+        q4.addChoice("A", "Vote against it, advocating for a solution that benefits everyone.", "Lawful Good");
+        q4.addChoice("B", "Vote for it, prioritizing your community’s needs above others.", "Lawful Neutral");
+        q4.addChoice("C", "Abstain from voting, unwilling to choose sides.", "True Neutral");
+        q4.addChoice("D", "Secretly campaign for it, disregarding its wider impacts for personal gain.", "Neutral Evil");
+        //quiz.addQuestion(q4);
+
+        // Question 5
+        QuizQuestion q5 = new QuizQuestion("5. During a heated debate, someone insults you. What is your response?");
+        q5.addChoice("A", "Keep calm and redirect the conversation back to the topic at hand.", "Lawful Neutral");
+        q5.addChoice("B", "Defuse the tension with humor, keeping things light.", "Neutral Good");
+        q5.addChoice("C", "Insult them back, escalating the argument.", "Chaotic Neutral");
+        q5.addChoice("D", "Wait for an opportunity to undermine them later in a more damaging way.", "Chaotic Evil");
+        //quiz.addQuestion(q5);
+
+        // Question 6
+        QuizQuestion q6 = new QuizQuestion("6. When you see a street performer attracting a large crowd, what is your reaction?");
+        q6.addChoice("A", "Watch quietly and leave a generous tip if you enjoy the performance.", "Neutral Good");
+        q6.addChoice("B", "Disregard the performer, believing your time is better spent on more productive activities.", "Lawful Neutral");
+        q6.addChoice("C", "Join the performance if allowed, enjoying the spontaneity of the moment.", "Chaotic Good");
+        q6.addChoice("D", "Try to figure out how to make money off the gathering.", "Neutral Evil");
+        //quiz.addQuestion(q6);
+
+        // Question 7
+        QuizQuestion q7 = new QuizQuestion("7. You're given the opportunity to rewrite any of your country's laws. What's your approach?");
+        q7.addChoice("A", "Amend laws to increase transparency and accountability in government.", "Lawful Good");
+        q7.addChoice("B", "Remove outdated laws that restrict personal freedoms.", "Chaotic Good");
+        q7.addChoice("C", "Enact laws that benefit you directly.", "Lawful Evil");
+        q7.addChoice("D", "Make no changes, preferring to maintain the status quo to avoid unintended consequences.", "True Neutral");
+        //quiz.addQuestion(q7);
+
+        // Question 8
+        QuizQuestion q8 = new QuizQuestion("8. When you have power over others, how do you exercise it?");
+        q8.addChoice("A", "Use it to enforce rules and maintain order.", "Lawful Neutral");
+        q8.addChoice("B", "Use it judiciously, trying to be fair and just to everyone.", "Lawful Good");
+        q8.addChoice("C", "Use it to advance personal agendas.", "Neutral Evil");
+        q8.addChoice("D", "Reject traditional uses of power, preferring to let people govern themselves.", "Chaotic Neutral");
+        //quiz.addQuestion(q8);
+
+        // Question 9
+        QuizQuestion q9 = new QuizQuestion("9. If you could choose any job, regardless of pay, what would it be?");
+        q9.addChoice("A", "A judge or a law enforcer, upholding the law and ensuring justice.", "Lawful Good");
+        q9.addChoice("B", "A wildlife conservationist, protecting animals and their habitats.", "Neutral Good");
+        q9.addChoice("C", "A corporate executive, with the power to shape major economic policies.", "Lawful Evil");
+        q9.addChoice("D", "An explorer, traveling the world with no fixed agenda or responsibilities.", "Chaotic Neutral");
+        //quiz.addQuestion(q9);
+
+        // Question 10
+        QuizQuestion q10 = new QuizQuestion("10. During a city-wide blackout, you see people looting stores. How do you respond?");
+        q10.addChoice("A", "Report the looters to the authorities to help maintain order.", "Lawful Good");
+        q10.addChoice("B", "Stay out of it and protect your own property.", "Lawful Neutral");
+        q10.addChoice("C", "Join in, seeing an opportunity to grab some supplies.", "Chaotic Evil");
+        q10.addChoice("D", "Help organize a neighborhood watch to protect local businesses.", "Neutral Good");
+        //quiz.addQuestion(q10);
+    }
+
+    private void handleChoice(String choiceLetter) {
+
+        // Records user's choice
+        switch (choiceLetter) {
+            case "A":
+                QuizQuestion.getAlignment("A");
+                break;
+            case "B":
+                QuizQuestion.getAlignment("B");
+                break;
+            case "C":
+                QuizQuestion.getAlignment("C");
+                break;
+            case "D":
+                QuizQuestion.getAlignment("D");
+                break;
+            default:
+                showResult(currentQuestionIndex);
+
+        }
+        // Moves to next question
+        showQuestion(currentQuestionIndex++);
+    }
+
+    private void showQuestion(int index) {
+
+        // Moves to the next question
+        //quiz.showQuestion(currentQuestionIndex);
+    }
+
+    private void showResult(int index) {
+        //Shows result of quiz
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+
+}
