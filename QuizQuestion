@@ -1,3 +1,5 @@
+
+package project211.newestproject211;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -10,40 +12,30 @@ import java.util.Map;
  * Created by Emmanuel Mendoza
  */
 
+
 public class QuizQuestion {
-    private String questionText; // Text of the quiz question
-    private Map<String, String> choices; // Maps choice letter to description
-    private Map<String, String> alignments; // Maps choice letter to alignment, hidden from user
+    private String questionText;
+    private Map<String, String> choices = new LinkedHashMap<>();
+    private Map<String, String> alignments = new LinkedHashMap<>();
 
-
-     // Constructor for QuizQuestion. Initializes maps for choices and alignments.
     public QuizQuestion(String questionText) {
         this.questionText = questionText;
-        this.choices = new LinkedHashMap<>(); // Maintains the order of insertion for choices
-        this.alignments = new LinkedHashMap<>(); // Maintains the order of insertion for alignments
     }
 
-
-     // Adds a choice to the quiz question.
     public void addChoice(String answerLetter, String choice, String alignment) {
-        choices.put(answerLetter, choice); // Only store the choice text for display
-        alignments.put(answerLetter, alignment); // Store the alignment secretly for internal scoring
+        choices.put(answerLetter, choice);
+        alignments.put(answerLetter, alignment);
     }
 
-     // Returns the text of the quiz question.
     public String getQuestionText() {
         return questionText;
     }
 
-
-     // Returns the choices for the quiz question.
     public Map<String, String> getChoices() {
-        return choices; // Return only the choices, not the alignments
+        return new LinkedHashMap<>(choices);
     }
 
-
-     // This method is intended for internal use to aid in scoring based on user's answers.
-    String getAlignment(String answerLetter) {
+    public String getAlignment(String answerLetter) {
         return alignments.get(answerLetter);
     }
 }
