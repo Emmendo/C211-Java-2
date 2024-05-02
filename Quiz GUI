@@ -1,35 +1,36 @@
-package dandd.danddquizgui;
+package project211.newestproject211;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 import javafx.stage.StageStyle;
-import java.io.IOException;
 
 /**
  * Personality Quiz GUI class
  * @Date: 4/29/2024
  * @Author: Kristen Thomas
+ * Edited by Emmanuel Mendoza
  */
 
 public class DDQuiz extends Application {
-
-    int currentQuestionIndex = 0;
+    private PersonalityQuiz quiz = new PersonalityQuiz();
+    private int currentQuestionIndex = 0;
+    private Label questionLabel;
+    private VBox optionsBox;
+    private BorderPane root;
+    private Button nextButton; // Button to proceed to the next question or show results.
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         Scene scene = new Scene(quizPane(), 650, 400);
         stage.setTitle("D&D Personality Quiz");
         stage.setScene(scene);
@@ -40,6 +41,9 @@ public class DDQuiz extends Application {
     }
 
     private BorderPane quizPane() {
+        quiz = new PersonalityQuiz();
+        initializeQuestions(); // Populates the quiz with questions.
+
         BorderPane mainPane = new BorderPane();
         mainPane.setStyle("-fx-background-color: white; -fx-background-radius: 32px; -fx-border-radius: 32px;");
 
@@ -50,72 +54,32 @@ public class DDQuiz extends Application {
         quizLabel.setFont(new Font("Bookman Old Style", 24));
         quizLabel.setStyle("-fx-text-fill: darkolivegreen;");
 
-        //Label for questions
-        Label questionLabel = new Label("Question: " + QuizQuestion.getQuestionText()); //
-        questionLabel.setWrapText(true);
-        questionLabel.setTextAlignment(TextAlignment.CENTER);
-        questionLabel.setFont(new Font("Arial", 16));
+        // Setup the options container
+        optionsBox = new VBox(10);
+        optionsBox.setAlignment(Pos.CENTER_LEFT);
+        optionsBox.setPadding(new Insets(20));
 
-        //pane for labels
-        VBox labelBox = new VBox(20);
-        labelBox.setPadding(new Insets(30));
-        labelBox.getChildren().addAll(quizLabel, questionLabel);
-        labelBox.setAlignment(Pos.BOTTOM_CENTER);
+       // Setup the 'Next' button
+        nextButton = new Button("Next");
+        nextButton.setOnAction(e -> handleNext());
 
-        //Quiz choice buttons
-        RadioButton optA = new RadioButton("A. " + QuizQuestion.getChoices("A"));
-        RadioButton optB = new RadioButton("B. " + QuizQuestion.getChoices("B"));
-        RadioButton optC = new RadioButton("C. " + QuizQuestion.getChoices("C"));
-        RadioButton optD = new RadioButton("D. " + QuizQuestion.getChoices("D"));
-        optA.setFont(new Font("Arial", 14));
-        optB.setFont(new Font("Arial", 14));
-        optC.setFont(new Font("Arial", 14));
-        optD.setFont(new Font("Arial", 14));
+        // VBox to hold all UI elements vertically
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(questionLabel, optionsBox, nextButton);
+        vbox.setAlignment(Pos.CENTER);
 
-        //only one button can be selected
-        ToggleGroup optGroup = new ToggleGroup();
-        optA.setToggleGroup(optGroup);
-        optB.setToggleGroup(optGroup);
-        optC.setToggleGroup(optGroup);
-        optD.setToggleGroup(optGroup);
+        root.setCenter(vbox);
 
-        //buttons pane
-        VBox vbox = new VBox(30);
-        vbox.setPadding(new Insets(25));
-        vbox.getChildren().addAll(optA, optB, optC, optD);
-        vbox.setAlignment(Pos.CENTER_LEFT);
+        Scene scene = new Scene(root, 650, 400);
+        stage.setTitle("D&D Personality Quiz");
+        stage.setScene(scene);
+        stage.show();
 
-        mainPane.setTop(labelBox);
-        mainPane.setCenter(vbox);
-
-        //button handlers
-        optA.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                handleChoice("A");
-            }
-        });
-        optB.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                handleChoice("B");
-            }
-        });
-        optC.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                handleChoice("C");
-            }
-        });
-        optD.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                handleChoice("D");
-            }
-        });
-
-        return mainPane;
+        displayCurrentQuestion();
     }
+
+
+
 
     // Questions for GUI
     private void initializeQuestions() {
@@ -200,42 +164,52 @@ public class DDQuiz extends Application {
         //quiz.addQuestion(q10);
     }
 
-    private void handleChoice(String choiceLetter) {
+    private void displayCurrentQuestion() {
+        if (currentQuestionIndex < quiz.getQuestions().size()) {
+            QuizQuestion currentQuestion = quiz.getQuestions().get(currentQuestionIndex);
+            questionLabel.setText(currentQuestion.getQuestionText());
+            optionsBox.getChildren().clear();
 
-        // Records user's choice
-        switch (choiceLetter) {
-            case "A":
-                QuizQuestion.getAlignment("A");
-                break;
-            case "B":
-                QuizQuestion.getAlignment("B");
-                break;
-            case "C":
-                QuizQuestion.getAlignment("C");
-                break;
-            case "D":
-                QuizQuestion.getAlignment("D");
-                break;
-            default:
-                showResult(currentQuestionIndex);
-
+            // Radio buttons for answer options
+            ToggleGroup group = new ToggleGroup();
+            currentQuestion.getChoices().forEach((key, value) -> {
+                RadioButton button = new RadioButton(value);
+                button.setUserData(key);  // Store choice key in the button
+                button.setToggleGroup(group);
+                optionsBox.getChildren().add(button);
+            });
+        } else {
+            showResults();
         }
-        // Moves to next question
-        showQuestion(currentQuestionIndex++);
     }
 
-    private void showQuestion(int index) {
+    private void handleNext() {
+        if (currentQuestionIndex < quiz.getQuestions().size()) {
+            RadioButton selected = (RadioButton) optionsBox.getChildren().stream()
+                    .filter(node -> ((RadioButton) node).isSelected())
+                    .findFirst()
+                    .orElse(null);
 
-        // Moves to the next question
-        //quiz.showQuestion(currentQuestionIndex);
+            if (selected != null) {
+                String selectedChoice = (String) selected.getUserData();
+                quiz.answerQuestion(currentQuestionIndex, selectedChoice);
+                currentQuestionIndex++;
+                displayCurrentQuestion();
+            }
+        } else {
+            showResults();
+            nextButton.setDisable(true); // Disable button after the last question
+        }
     }
 
-    private void showResult(int index) {
-        //Shows result of quiz
+    private void showResults() {
+        String result = quiz.calculateResults();
+        questionLabel.setText("Your alignment is: " + result);
+        optionsBox.getChildren().clear(); // Clear previous options
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
 }
