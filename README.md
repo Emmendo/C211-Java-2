@@ -3,7 +3,7 @@ Personality Quiz
 
 We will be working on creating a brief personality quiz that will output different results based on user input.
 
-Contribututors
+Contributors
 
 AllisonC17
 kr-thom
