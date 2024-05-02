@@ -1,0 +1,57 @@
+package project211.newestproject211;
+
+/*
+* Class to host the alignment scores and alignments themselves
+* Date:  5/1/2024
+* Author: Emmanuel Mendoza
+*/
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class PersonalityQuiz {
+    private List<QuizQuestion> questions = new ArrayList<>();
+    private Map<String, Integer> alignmentScores = new HashMap<>();
+
+    public PersonalityQuiz() {
+        initializeAlignments();
+    }
+
+    private void initializeAlignments() {
+        String[] alignments = {"Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral",
+                "True Neutral", "Chaotic Neutral", "Lawful Evil", "Neutral Evil",
+                "Chaotic Evil"};
+        for (String alignment : alignments) {
+            alignmentScores.put(alignment, 0);
+        }
+    }
+
+    public void addQuestion(QuizQuestion question) {
+        questions.add(question);
+    }
+
+    public List<QuizQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void answerQuestion(int questionIndex, String answerLetter) {
+        if (questionIndex < 0 || questionIndex >= questions.size()) {
+            throw new IndexOutOfBoundsException("Invalid question index.");
+        }
+        String alignment = questions.get(questionIndex).getAlignment(answerLetter);
+        if (alignment != null) {
+            alignmentScores.put(alignment, alignmentScores.getOrDefault(alignment, 0) + 1);
+        } else {
+            throw new IllegalArgumentException("Answer choice does not exist for this question.");
+        }
+    }
+
+    public String calculateResults() {
+        return alignmentScores.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse("No result calculated.");
+    }
+}
