@@ -4,3 +4,243 @@
  * @Author: Allison Coffman
  */
 
+public class QuizLogic{
+
+        public QuizScore(int score) {
+            this.alignments;
+            int questions = 10;
+
+            public q1( int q1score){
+                lawfulGood = 0;
+                neutralGood = 0;
+                chaoticGood = 0;
+                neutralEvil = 0;
+
+                if (q1.choices == A) {
+                    lawfulGood + 1 = q1score;
+                } else if (q1.choices == B) {
+                    neutralGood + 1 = q1score;
+                } else if (q1.choices == C) {
+                    chaoticGood + 1 = q1score;
+                } else if (q1.choices == D) {
+                    neutralEvil + 1 = q1score;
+                }
+                return q1score;
+            }
+
+            public q2( int q2score){
+                lawfulGood = 0;
+                neutralGood = 0;
+                chaoticNeutral = 0;
+                lawfulEvil = 0;
+
+                if (q2.choices == A) {
+                    lawfulGood + 1 = q2score;
+                } else if (q2.choices == B) {
+                    neutralGood + 1 = q2score;
+                } else if (q2.choices == C) {
+                    chaoticNeutral + 1 = q2score;
+                } else if (q2.choices == D) {
+                    lawfulEvil + 1 = q2score;
+                }
+                return q2score;
+            }
+
+            public q3( int q3score){
+                lawfulGood = 0;
+                neutralGood = 0;
+                neutralEvil = 0;
+                chaoticNeutral = 0;
+
+                if (q2.choices == A) {
+                    lawfulGood + 1 = q3score;
+                } else if (q2.choices == B) {
+                    neutralGood + 1 = q3score;
+                } else if (q2.choices == C) {
+                    neutralEvil + 1 = q3score;
+                } else if (q2.choices == D) {
+                    chaoticNeutral + 1 = q3score;
+                }
+                return q3score;
+            }
+
+            public q4( int q4score){
+                lawfulGood = 0;
+                lawfulNeutral = 0;
+                trueNeutral = 0;
+                neutralEvil = 0;
+
+                if (q2.choices == A) {
+                    lawfulGood + 1 = q4score;
+                } else if (q2.choices == B) {
+                    lawfulNeutral + 1 = q4score;
+                } else if (q2.choices == C) {
+                    trueNeutral + 1 = q4score;
+                } else if (q2.choices == D) {
+                    neutralEvil + 1 = q4score;
+                }
+                return q4score;
+            }
+
+            public q5( int q5score){
+                lawfulNeutral = 0;
+                neutralGood = 0;
+                chaoticNeutral = 0;
+                chaoticEvil = 0;
+
+                if (q2.choices == A) {
+                    lawfulGood + 1 = q5score;
+                } else if (q2.choices == B) {
+                    neutralGood + 1 = q5score;
+                } else if (q2.choices == C) {
+                    chaoticNeutral + 1 = q5score;
+                } else if (q2.choices == D) {
+                    chaoticEvil + 1 = q5score;
+                }
+                return q5score;
+            }
+
+            public q6( int q6score){
+                lawfulNeutral = 0;
+                neutralGood = 0;
+                chaoticGood = 0;
+                neutralEvil = 0;
+
+                if (q2.choices == A) {
+                    neutralGood + 1 = q6score;
+                } else if (q2.choices == B) {
+                    lawfulNeutral + 1 = q6score;
+                } else if (q2.choices == C) {
+                    chaoticGood + 1 = q6score;
+                } else if (q2.choices == D) {
+                    neutralEvil + 1 = q6score;
+                }
+                return q6score;
+            }
+
+            public q7( int q7score){
+                trueNeutral = 0;
+                lawfulGood = 0;
+                chaoticGood = 0;
+                lawfulEvil = 0;
+
+                if (q2.choices == A) {
+                    lawfulGood + 1 = q7score;
+                } else if (q2.choices == B) {
+                    chaoticGood + 1 = q7score;
+                } else if (q2.choices == C) {
+                    lawfulEvil + 1 = q7score;
+                } else if (q2.choices == D) {
+                    trueNeutral + 1 = q7score;
+                }
+                return q7score;
+            }
+
+            public q8( int q8score){
+                lawfulNeutral = 0;
+                lawfulGood = 0;
+                neutralEvil = 0;
+                chaoticNeutral = 0;
+
+                if (q2.choices == A) {
+                    lawfulNeutral + 1 = q8score;
+                } else if (q2.choices == B) {
+                    lawfulGood + 1 = q8score;
+                } else if (q2.choices == C) {
+                    neutralEvil + 1 = q8score;
+                } else if (q2.choices == D) {
+                    chaoticNeutral + 1 = q8score;
+                }
+                return q8score;
+            }
+
+            public q9( int q9score){
+                lawfulGood = 0;
+                neutralGood = 0;
+                lawfulEvil = 0;
+                chaoticNeutral = 0;
+
+                if (q2.choices == A) {
+                    lawfulGood + 1 = q9score;
+                } else if (q2.choices == B) {
+                    neutralGood + 1 = q9score;
+                } else if (q2.choices == C) {
+                    lawfulEvil + 1 = q9score;
+                } else if (q2.choices == D) {
+                    chaoticNeutral + 1 = q9score;
+                }
+                return q9score;
+            }
+
+            public q10( int q10score){
+                lawfulGood = 0;
+                lawfulNeutral = 0;
+                chaoticEvil = 0;
+                neutralGood = 0;
+
+                if (q2.choices == A) {
+                    lawfulGood + 1 = q10score;
+                } else if (q2.choices == B) {
+                    lawfulNeutral + 1 = q10score;
+                } else if (q2.choices == C) {
+                    chaoticEvil + 1 = q10score;
+                } else if (q2.choices == D) {
+                    neutralGood + 1 = q10score;
+                }
+                return q10score;
+            }
+
+            for (int i = 0; i <= question.length(); i++) {
+
+                if (lawfulGood != 0) {
+                    lawfulGood + lawfulGood = new lawfulGood;
+                    lawfulGood++;
+                }
+
+                if (neutralGood != 0) {
+                    neutralGood + neutralGood = new neutralGood;
+                    neutralGood++;
+                }
+
+                if (chaoticGood != 0) {
+                    chaoticGood + chaoticGood = new chaoticGood;
+                    chaoticGood++;
+                }
+
+                if (neutralEvil != 0) {
+                    neutralEvil + neutralEvil = new neutralEvil;
+                    neutralEvil++;
+                }
+
+                if (chaoticNeutral != 0) {
+                    chaoticNeutral + chaoticNeutral = new chaoticNeutral;
+                    chaoticNeutral++;
+                }
+
+                if (lawfulEvil != 0) {
+                    lawfulEvil + lawfulEvil = new lawfulEvil;
+                    lawfulEvil++;
+                }
+
+                if (lawfulNeutral != 0) {
+                    lawfulNeutral + lawfulNeutral = new lawfulNeutral;
+                    lawfulNeutral++;
+                }
+
+                if (chaoticEvil != 0) {
+                    chaoticEvil + chaoticEvil = new chaoticEvil;
+                    chaoticEvil++;
+                }
+
+                if (trueNeutral != 0) {
+                    trueNeutral + trueNeutral = new trueNeutral;
+                    trueNeutral++;
+                }
+
+                System.out.println(lawfulGood, neutralGood, chaoticGood,
+                        neutralEvil, chaoticNeutral, lawfulEvil, lawfulNeutral,
+                        chaoticEvil, trueNeutral);
+            }
+
+        }
+}
